@@ -5,9 +5,10 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
-import { DatabaseService } from './database/database.service';
 import { DatabaseModule } from './database/database.module';
 import { InjestModule } from './injest/injest.module';
+import { InstrumentsModule } from './instruments/instruments.module';
+import { Instrument } from './instruments/entities/instrument.entity';
 
 @Module({
   imports: [
@@ -28,10 +29,9 @@ import { InjestModule } from './injest/injest.module';
     autoLoadEntities: true,
     synchronize: true,
   }),
-
     DatabaseModule,
-
     InjestModule,
+    InstrumentsModule,
   ],
 
 
