@@ -72,7 +72,35 @@ export class NotificationService {
                     </table>
                 </div>
                 `;
+            case NotificationType.OTP:
+            return `
+            <div style="font-family:Arial,sans-serif;padding:20px">
+                <h2 style="color:#2563eb">
+                    Verify Your Email
+                </h2>
 
+                <p>Your one-time password (OTP) is:</p>
+
+                <div
+                    style="
+                        font-size:32px;
+                        font-weight:bold;
+                        letter-spacing:8px;
+                        padding:20px;
+                        background:#f3f4f6;
+                        text-align:center;
+                        border-radius:8px;
+                        margin:20px 0;
+                    "
+                >
+                    ${payload}
+                </div>
+
+                <p>This OTP will expire in 10 minutes.</p>
+
+                <p>If you did not request this code, you can safely ignore this email.</p>
+            </div>
+            `;
             default:
                 return `<h3>${title}</h3>`;
         }

@@ -10,6 +10,8 @@ import { InjestModule } from './injest/injest.module';
 import { InstrumentsModule } from './instruments/instruments.module';
 import { Instrument } from './instruments/entities/instrument.entity';
 import { NotificationModule } from './notification/notification.module';
+import { UsersModule } from './users/users.module';
+import { OtpModule } from './common/otp/otp.module';
 
 @Module({
   imports: [
@@ -28,12 +30,14 @@ import { NotificationModule } from './notification/notification.module';
     database: process.env.DB_NAME,
 
     autoLoadEntities: true,
-    synchronize: true,
+    synchronize: false,
   }),
     DatabaseModule,
     InjestModule,
     InstrumentsModule,
     NotificationModule,
+    UsersModule,
+    OtpModule,
   ],
 
 
