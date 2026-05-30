@@ -17,6 +17,7 @@ export class SchedulerService {
     }
 
     @Cron("0 0 7 * * *")
+    // @Cron(CronExpression.EVERY_MINUTE)
     async executeInjestData(){
         const NSEFile = await axios.get(`${process.env.NSE_URL}`,{
           responseType: 'arraybuffer',

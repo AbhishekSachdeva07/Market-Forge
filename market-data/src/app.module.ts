@@ -9,6 +9,7 @@ import { DatabaseModule } from './database/database.module';
 import { InjestModule } from './injest/injest.module';
 import { InstrumentsModule } from './instruments/instruments.module';
 import { Instrument } from './instruments/entities/instrument.entity';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { Instrument } from './instruments/entities/instrument.entity';
     DatabaseModule,
     InjestModule,
     InstrumentsModule,
+    NotificationModule,
   ],
 
 
