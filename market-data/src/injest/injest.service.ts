@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
+import { RedisService } from 'src/database/redis/redis.service';
 import { Instrument } from 'src/instruments/entities/instrument.entity';
 import { NotificationType } from 'src/notification/notification.enum';
 import { NotificationService } from 'src/notification/notification.service';
@@ -14,6 +15,7 @@ export class InjestService{
         @InjectRepository(Instrument)
         private readonly instrumentRepository : Repository<Instrument>,
         private readonly notificationService: NotificationService,
+        private readonly redisService : RedisService
     ){}
 
     async filterAndSaveDate(data: any){
@@ -70,7 +72,10 @@ export class InjestService{
         for( let i = 0; i<validData.length; i+=batchSize){
             const batch = validData.slice(i, i+batchSize);
             await this.instrumentRepository.upsert(batch, ['instrumentKey']);
-        }        
+        }       
+        
+        await this.redisService.getClient().del('instruments:latest');
+        
         console.log('Data Inserted/Updated Successfully');
 
         if(invalidData.length > 0){
