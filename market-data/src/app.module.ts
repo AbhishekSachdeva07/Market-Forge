@@ -12,6 +12,12 @@ import { Instrument } from './instruments/entities/instrument.entity';
 import { NotificationModule } from './notification/notification.module';
 import { UsersModule } from './users/users.module';
 import { OtpModule } from './common/otp/otp.module';
+import { JwtService } from './guard/jwt/jwt-token.service';
+import { JwtTokenModule } from './guard/jwt/jwt-token.module';
+import { AdminJwtModule } from './guard/admin-jwt/admin-jwt.module';
+import { AdminTokenModule } from './guard/admin-token/admin-token.module';
+import { TokenModule } from './guard/token/token.module';
+import { ApiKeysModule } from './api-keys/api-keys.module';
 
 @Module({
   imports: [
@@ -38,10 +44,15 @@ import { OtpModule } from './common/otp/otp.module';
     NotificationModule,
     UsersModule,
     OtpModule,
+    JwtTokenModule,
+    AdminJwtModule,
+    AdminTokenModule,
+    TokenModule,
+    ApiKeysModule,
   ],
 
 
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtService],
 })
 export class AppModule {}
