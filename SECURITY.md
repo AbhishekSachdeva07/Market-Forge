@@ -10,7 +10,7 @@ If you discover a security vulnerability, please do **not** open a public GitHub
 
 Instead, send an email to:
 
-your-email@example.com
+abhisachdeva0711@gmail.com
 
 Please include:
 
