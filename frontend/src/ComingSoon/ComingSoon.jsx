@@ -100,7 +100,7 @@ export default function ComingSoon() {
               "@context": "https://schema.org",
               "@type": "WebSite",
               "name": "Market Forge",
-              "url": "https://yourdomain.com",
+              "url": "https://marketdatasimulator.netlify.app",
               "description": "Simulated Market Data API for students, educators, and developers.",
               "publisher": {
                 "@type": "Organization",
