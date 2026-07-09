@@ -3,7 +3,7 @@ import './App.css'
 import { useAppAnalytics } from './firebase/AnalyticsContext.jsx';
 import { getToken } from 'firebase/messaging';
 import { messaging } from './firebase/firebase';
-import ComingSoon from './ComingSoon/comingsoon.jsx';
+import ComingSoon from './ComingSoon/ComingSoon.jsx';
 
 function App() {
 
