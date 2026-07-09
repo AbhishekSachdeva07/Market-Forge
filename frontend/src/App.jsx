@@ -3,6 +3,7 @@ import './App.css'
 import { useAppAnalytics } from './firebase/AnalyticsContext.jsx';
 import { getToken } from 'firebase/messaging';
 import { messaging } from './firebase/firebase';
+import ComingSoon from './ComingSoon/comingsoon.jsx';
 
 function App() {
 
@@ -40,7 +41,7 @@ function App() {
     alert('Logged successfully!');
   };
 
-  return (<><h1>COMING SOON</h1></>);
+  return (<><ComingSoon/></>);
 }
 
 export default App
