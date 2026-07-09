@@ -12,7 +12,7 @@ import { Instrument } from './instruments/entities/instrument.entity';
 import { NotificationModule } from './notification/notification.module';
 import { UsersModule } from './users/users.module';
 import { OtpModule } from './common/otp/otp.module';
-import { JwtService } from './guard/jwt/jwt-token.service';
+import { JwtTokenService } from './guard/jwt/jwt-token.service';
 import { JwtTokenModule } from './guard/jwt/jwt-token.module';
 import { AdminJwtModule } from './guard/admin-jwt/admin-jwt.module';
 import { AdminTokenModule } from './guard/admin-token/admin-token.module';
@@ -53,6 +53,6 @@ import { ApiKeysModule } from './api-keys/api-keys.module';
 
 
   controllers: [AppController],
-  providers: [AppService, JwtService],
+  providers: [AppService],
 })
 export class AppModule {}

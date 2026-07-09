@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserOtpDto } from './dto/user-otp.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
@@ -6,6 +6,7 @@ import { Repository } from 'typeorm/browser/repository/Repository.js';
 import { OtpService } from 'src/common/otp/otp.service';
 import { RedisService } from 'src/database/redis/redis.service';
 import { UserDto } from './dto/user.dto';
+import { JwtTokenService } from 'src/guard/jwt/jwt-token.service';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,8 @@ export class UsersService {
         @InjectRepository(User)
         private readonly userRepository : Repository<User>,
         private readonly otpService : OtpService,
-        private readonly redisService: RedisService
+        private readonly redisService: RedisService,
+        private readonly jwtTokenService: JwtTokenService
     ){}
     async handleLoginSignupOtp(userOtpDto: UserOtpDto) {
         // email already validated now check if present in db
@@ -37,12 +39,38 @@ export class UsersService {
         }
         if(cachedOtp === userOtpDto.otp){
             await this.redisService.getClient().del(`otp:${email}`);
-            return { message: 'OTP verification successful', success: true, type, email };
+            //generate a token based on usertype
+            if(type === 'login'){
+                const user = await this.userRepository.findOne({
+                    where: {
+                        email: email
+                    }
+                })
+                if(user){
+                    const jwt = await this.jwtTokenService.generateToken({
+                        email,
+                        role: user?.userType
+                    })
+                    return { message: 'OTP verification successful', success: true, type, email, jwtToken:  jwt};
+                }
+            }
+            return { message: 'OTP verification successful', success: true, type, email, jwtToken: null};
         }
         return { message: 'OTP verification failed', success: false, type, email };
     }
 
     async create(createUserDto: UserDto) {
+        if(!createUserDto){
+            throw new BadRequestException("Insufficent Details provided.");
+        }
+        const userExist = this.userRepository.findOne({
+            where: {
+                email: createUserDto?.email
+            }
+        });
+        if(!userExist){
+            throw new BadRequestException("User Already Exists");
+        }
         const user = this.userRepository.create(createUserDto);
         return this.userRepository.save(user);
     }
