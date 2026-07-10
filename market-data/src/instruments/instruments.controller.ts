@@ -11,4 +11,10 @@ export class InstrumentsController {
   findAll() {
     return this.instrumentsService.findAll();
   }
+
+  @Get(':tradingSymbol')
+  @Version('1')
+  find(@Param('tradingSymbol') tradingSymbol: string){
+    return this.instrumentsService.find(tradingSymbol);
+  }
 }

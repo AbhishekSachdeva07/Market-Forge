@@ -7,6 +7,7 @@ import { OtpService } from 'src/common/otp/otp.service';
 import { RedisService } from 'src/database/redis/redis.service';
 import { UserDto } from './dto/user.dto';
 import { JwtTokenService } from 'src/guard/jwt/jwt-token.service';
+import { UserType } from './enums/user.type';
 
 @Injectable()
 export class UsersService {
@@ -63,15 +64,23 @@ export class UsersService {
         if(!createUserDto){
             throw new BadRequestException("Insufficent Details provided.");
         }
-        const userExist = this.userRepository.findOne({
+        const userExist = await this.userRepository.findOne({
             where: {
                 email: createUserDto?.email
             }
         });
-        if(!userExist){
+        if(userExist){
             throw new BadRequestException("User Already Exists");
         }
-        const user = this.userRepository.create(createUserDto);
-        return this.userRepository.save(user);
+        const user = await this.userRepository.create(createUserDto);
+        const savedUser = await this.userRepository.save(user);
+        const jwt = await this.jwtTokenService.generateToken({
+            email: createUserDto?.email ,
+            role: UserType.STUDENT
+        })
+        return {
+            savedUser,
+            jwt
+        };
     }
 }
