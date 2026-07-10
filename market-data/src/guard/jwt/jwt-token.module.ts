@@ -3,6 +3,7 @@ import { JwtTokenService } from './jwt-token.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtGuard } from './jwt.guard';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtController } from './jwt.controller';
 
 @Module({
     imports: [
@@ -17,5 +18,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ],
     exports: [JwtTokenService, JwtGuard],
     providers: [JwtTokenService, JwtGuard],
+    controllers: [JwtController],
 })
 export class JwtTokenModule {}

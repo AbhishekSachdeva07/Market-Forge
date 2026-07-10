@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { UserType } from 'src/users/enums/user.type';
 
 @Injectable()
 export class JwtTokenService {
@@ -21,5 +22,12 @@ export class JwtTokenService {
 
     async asyncdecodeToken(token: string) {
         return await this.jwtService.decode(token);
+    }
+
+    async generateAdminToken(payload: any): Promise<String> {
+        return await this.generateToken({
+            email: payload?.email,
+            role: UserType.ADMIN
+        })
     }
 }
