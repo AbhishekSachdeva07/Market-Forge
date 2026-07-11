@@ -88,4 +88,11 @@ export class Instrument {
     name: 'updated_at',
   })
   updatedAt: Date;
+
+  @Column({
+    name: 'is_active',
+    type: 'boolean',
+    default: true
+  })
+  isActive: boolean;
 }

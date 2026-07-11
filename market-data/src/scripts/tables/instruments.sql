@@ -17,3 +17,9 @@ CREATE TABLE instruments (
 
 ALTER TABLE instruments
 ADD COLUMN updated_at TIMESTAMP DEFAULT NOW();
+
+ALTER TABLE instruments
+ADD COLUMN is_active BOOLEAN NOT NULL DEFAULT TRUE;
+
+ALTER TABLE instruments
+ADD CONSTRAINT uq_instruments_isin UNIQUE (isin);

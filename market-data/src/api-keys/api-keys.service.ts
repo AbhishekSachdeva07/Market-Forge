@@ -47,11 +47,15 @@ export class ApiKeysService {
 
         try{
             await this.apiKeyRepo.save(apiKey);
+            const redisKey = `APIKEY:${user?.email}:${user?.role}`;
+            await this.redisService.getClient().set(redisKey, JSON.stringify(apiKey), 'EX', 2592000); //30day
         }
         catch(e){
             try{
                 apiKey.apiKey = crypto.randomBytes(32).toString('hex');
                 await this.apiKeyRepo.save(apiKey);
+                const redisKey = `APIKEY:${user?.email}:${user?.role}`;
+                await this.redisService.getClient().set(redisKey, JSON.stringify(apiKey), 'EX', 2592000); //30day
             }
             catch(e){
                 throw new InternalServerErrorException("Something went wrong")
@@ -97,7 +101,7 @@ export class ApiKeysService {
         if(!apiKey){
             throw new BadRequestException("No Api Key found for this user");
         }
-        await this.redisService.getClient().set(redisKey, JSON.stringify(apiKey), 'EX', 86400); //1day
+        await this.redisService.getClient().set(redisKey, JSON.stringify(apiKey), 'EX', 2592000); //30day
         return {
             apiKey,
             success: true

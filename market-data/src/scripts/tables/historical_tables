@@ -1,0 +1,29 @@
+CREATE TABLE historical_candles (
+    id BIGSERIAL PRIMARY KEY,
+
+    isin VARCHAR(20) NOT NULL,
+
+    trading_date DATE NOT NULL,
+
+    open NUMERIC(12,2) NOT NULL,
+    high NUMERIC(12,2) NOT NULL,
+    low NUMERIC(12,2) NOT NULL,
+    close NUMERIC(12,2) NOT NULL,
+
+    volume BIGINT NOT NULL,
+
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT fk_historical_candles_isin
+        FOREIGN KEY (isin)
+        REFERENCES instruments(isin)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE UNIQUE INDEX idx_historical_candles_unique
+ON historical_candles (isin, trading_date);
+
+CREATE INDEX idx_historical_candles_date
+ON historical_candles (trading_date);
