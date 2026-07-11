@@ -15,6 +15,7 @@ import {
 } from './theme/customizations';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import api from '../api/api.js';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -28,16 +29,8 @@ export default function Dashboard(props) {
 
   const fetchApiKeys = async () => {
     try {
-      const token = localStorage.getItem("SIM-USER-JWT");
 
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/v1/api-keys`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const {data} = await api.get("/v1/api-keys");
 
       setApiKeys(data);
     } catch (err) {

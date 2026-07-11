@@ -9,21 +9,13 @@ import Search from './Search';
 import { Button } from '@mui/material';
 import AddIcon from "@mui/icons-material/Add";
 import axios from 'axios';
+import api from '../../api/api.js';
 
 export default function Header({ onApiKeyCreated }) { 
   const createApiKey = async () => {
     try {
-      const token = localStorage.getItem("SIM-USER-JWT");
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/v1/api-keys`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.post('/v1/api-keys');
 
       onApiKeyCreated();
     } catch (error) {
