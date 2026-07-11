@@ -1,12 +1,39 @@
 import { DataGrid } from '@mui/x-data-grid';
-import { columns, rows } from '../internals/data/gridData';
+import { columns, rows } from '../internals/data/gridData.jsx';
+import { Box, Typography } from "@mui/material";
 
 export default function CustomizedDataGrid() {
+  const rowData = [];
+
+  function NoApiKeysOverlay() {
+    return (
+      <Box
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 1,
+        }}
+      >
+        <Typography variant="h6">No API Keys</Typography>
+        <Typography variant="body2" color="text.secondary">
+          Issue an API key to start using Market Data Simulator.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <DataGrid
+      autoHeight
       checkboxSelection
-      rows={rows}
+      rows={rowData}
       columns={columns}
+      slots={{
+        noRowsOverlay: NoApiKeysOverlay,
+      }}
       getRowClassName={(params) =>
         params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
       }

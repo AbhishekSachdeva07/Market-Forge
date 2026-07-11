@@ -9,6 +9,7 @@ import SelectContent from './SelectContent';
 import MenuContent from './MenuContent';
 import CardAlert from './CardAlert';
 import OptionsMenu from './OptionsMenu';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -24,6 +25,19 @@ const Drawer = styled(MuiDrawer)({
 });
 
 export default function SideMenu() {
+  // get from localstorage
+  const [userData, setUserData] = useState({
+    email: "",
+    name: "",
+  });
+
+  useEffect(() => {
+    setUserData({
+      email: localStorage.getItem("SIM-USER-EMAIL") || "undefined",
+      name: localStorage.getItem("SIM-USER-NAME") || "undefined",
+    });
+  }, []);
+
   return (
     <Drawer
       variant="permanent"
@@ -53,7 +67,8 @@ export default function SideMenu() {
         }}
       >
         <MenuContent />
-        <CardAlert />
+        {/* will introduce later */}
+        {/* <CardAlert />   */}
       </Box>
       <Stack
         direction="row"
@@ -67,16 +82,16 @@ export default function SideMenu() {
       >
         <Avatar
           sizes="small"
-          alt="Riley Carter"
+          alt={userData?.name}
           src="/static/images/avatar/7.jpg"
           sx={{ width: 36, height: 36 }}
         />
         <Box sx={{ mr: 'auto' }}>
           <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: '16px' }}>
-            Riley Carter
+            {userData?.name}
           </Typography>
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            riley@email.com
+            {userData?.email}
           </Typography>
         </Box>
         <OptionsMenu />

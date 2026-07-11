@@ -56,16 +56,16 @@ export default function SelectContent() {
         },
       }}
     >
-      <ListSubheader sx={{ pt: 0 }}>Production</ListSubheader>
+      <ListSubheader sx={{ pt: 0 }}>Market Date Simulator</ListSubheader>
       <MenuItem value="">
         <ListItemAvatar>
           <Avatar alt="Sitemark web">
             <DevicesRoundedIcon sx={{ fontSize: '1rem' }} />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Sitemark-web" secondary="Web app" />
+        <ListItemText primary="Market Simulator" secondary="Web app" />
       </MenuItem>
-      <MenuItem value={10}>
+      {/* <MenuItem value={10}>
         <ListItemAvatar>
           <Avatar alt="Sitemark App">
             <SmartphoneRoundedIcon sx={{ fontSize: '1rem' }} />
@@ -89,14 +89,14 @@ export default function SelectContent() {
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Sitemark-Admin" secondary="Web app" />
-      </MenuItem>
-      <Divider sx={{ mx: -1 }} />
-      <MenuItem value={40}>
+      </MenuItem> */}
+      {/* <Divider sx={{ mx: -1 }} /> */}
+      {/* <MenuItem value={40}>
         <ListItemIcon>
           <AddRoundedIcon />
         </ListItemIcon>
         <ListItemText primary="Add product" secondary="Web app" />
-      </MenuItem>
+      </MenuItem> */}
     </Select>
   );
 }

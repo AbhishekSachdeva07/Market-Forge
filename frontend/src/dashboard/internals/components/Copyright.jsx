@@ -15,11 +15,9 @@ export default function Copyright(props) {
       ]}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Sitemark
+      <Link color="inherit" href="https://marketdatasimulator.netlify.app/">
+        {new Date().getFullYear()} Market Data Simulator. All rights reserved.
       </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
     </Typography>
   );
 }

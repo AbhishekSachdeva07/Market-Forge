@@ -51,7 +51,7 @@ export default function MainGrid() {
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Overview
       </Typography>
-      <Grid
+      {/* <Grid
         container
         spacing={2}
         columns={12}
@@ -71,10 +71,10 @@ export default function MainGrid() {
         <Grid size={{ xs: 12, md: 6 }}>
           <PageViewsBarChart />
         </Grid>
-      </Grid>
-      <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
+      </Grid> */}
+      {/* <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
         Details
-      </Typography>
+      </Typography> */}
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
           <CustomizedDataGrid />
@@ -85,11 +85,21 @@ export default function MainGrid() {
             sx={{ gap: 2 }}
           >
             <CustomizedTreeView />
-            <ChartUserByCountry />
+            {/* <ChartUserByCountry /> */}
           </Stack>
         </Grid>
       </Grid>
-      <Copyright sx={{ my: 4 }} />
+      <Copyright
+  sx={{
+    position: "fixed",
+    bottom: 0,
+    left: 240,
+    right: 0,
+    py: 2,
+    borderColor: "divider",
+    zIndex: 1300,
+  }}
+/>
     </Box>
   );
 }
