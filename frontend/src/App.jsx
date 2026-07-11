@@ -4,6 +4,8 @@ import { useAppAnalytics } from './firebase/AnalyticsContext.jsx';
 import { getToken } from 'firebase/messaging';
 import { messaging } from './firebase/firebase';
 import ComingSoon from './ComingSoon/ComingSoon.jsx';
+import Dashboard from './dashboard/Dashboard.jsx';
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -41,7 +43,12 @@ function App() {
     alert('Logged successfully!');
   };
 
-  return (<><ComingSoon/></>);
+  return (
+      <Routes>
+        <Route path='/' element={<ComingSoon/>} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+  );
 }
 
 export default App
