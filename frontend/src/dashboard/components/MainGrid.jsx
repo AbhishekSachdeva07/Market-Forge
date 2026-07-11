@@ -44,7 +44,7 @@ const data = [
   },
 ];
 
-export default function MainGrid() {
+export default function MainGrid({apiKeys}) {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
       {/* cards */}
@@ -77,7 +77,7 @@ export default function MainGrid() {
       </Typography> */}
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
-          <CustomizedDataGrid />
+          <CustomizedDataGrid apiKeys={ apiKeys }/>
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack

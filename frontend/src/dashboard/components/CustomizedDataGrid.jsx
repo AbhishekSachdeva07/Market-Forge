@@ -2,8 +2,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import { columns, rows } from '../internals/data/gridData.jsx';
 import { Box, Typography } from "@mui/material";
 
-export default function CustomizedDataGrid() {
+export default function CustomizedDataGrid({ apiKeys }) {
   const rowData = [];
+  console.log(apiKeys)
 
   function NoApiKeysOverlay() {
     return (
@@ -29,7 +30,12 @@ export default function CustomizedDataGrid() {
     <DataGrid
       autoHeight
       checkboxSelection
-      rows={rowData}
+      rows={apiKeys?.apiKey ? [{
+          ...apiKeys.apiKey,
+          isActive: apiKeys.apiKey.isActive ? "Active" : "Inactive",
+          createdAt: new Date(apiKeys.apiKey.createdAt).toLocaleDateString(),
+          expiresAt: new Date(apiKeys.apiKey.expiresAt).toLocaleDateString() ?? "Never",
+        },] : []}
       columns={columns}
       slots={{
         noRowsOverlay: NoApiKeysOverlay,

@@ -13,6 +13,8 @@ import {
   datePickersCustomizations,
   treeViewCustomizations,
 } from './theme/customizations';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -22,6 +24,30 @@ const xThemeComponents = {
 };
 
 export default function Dashboard(props) {
+  const [apiKeys, setApiKeys] = useState([]);
+
+  const fetchApiKeys = async () => {
+    try {
+      const token = localStorage.getItem("SIM-USER-JWT");
+
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/api-keys`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setApiKeys(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchApiKeys();
+  }, []);
   return (
     <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
@@ -48,8 +74,8 @@ export default function Dashboard(props) {
               mt: { xs: 8, md: 0 },
             }}
           >
-            <Header />
-            <MainGrid />
+            <Header onApiKeyCreated={fetchApiKeys} />
+            <MainGrid apiKeys={apiKeys} />
           </Stack>
         </Box>
       </Box>

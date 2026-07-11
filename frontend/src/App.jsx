@@ -6,8 +6,22 @@ import { messaging } from './firebase/firebase';
 import ComingSoon from './ComingSoon/ComingSoon.jsx';
 import Dashboard from './dashboard/Dashboard.jsx';
 import { Routes, Route } from "react-router-dom";
+import SignInSide from './sign-in-side/SignInSide.jsx';
+import MobileBlocked from './MobileBlocked/MobileBlocked.jsx';
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(window.innerWidth < 992); // md/lg breakpoint
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
 
   const { logCustomEvent } = useAppAnalytics();
 
@@ -43,10 +57,16 @@ function App() {
     alert('Logged successfully!');
   };
 
+  console.log("isMobile",isMobile);
+  if (isMobile) {
+    return <MobileBlocked />;
+  }
+
   return (
       <Routes>
         <Route path='/' element={<ComingSoon/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path='/dashboard/:email' element={<Dashboard />} />
+        <Route path='/signin' element={<SignInSide/>} />
       </Routes>
   );
 }

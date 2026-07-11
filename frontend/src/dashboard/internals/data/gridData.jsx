@@ -74,13 +74,13 @@ export function renderAvatar(params) {
 }
 
 export const columns = [
-  { field: 'apiKey', headerName: 'Api Key', flex: 1.5,align: 'center' ,minWidth: 150 },
+  { field: 'apiKey', headerName: 'Api Key', flex: 1.5,align: 'center' ,minWidth: 550 },
   {
-    field: 'status',
+    field: 'isActive',
     headerName: 'Status',
     flex: 0.5,
-    align: 'center',
-    minWidth: 150,
+    align: 'left',
+    minWidth: 100,
   },
   // {
   //   field: 'users',
@@ -107,18 +107,18 @@ export const columns = [
   //   minWidth: 120,
   // },
   {
-    field: 'activatedOn',
+    field: 'createdAt',
     headerName: 'Activated On',
-    align: 'center',
+    align: 'left',
     flex: 1,
     minWidth: 50,
   },
   {
-    field: 'expiresOn',
+    field: 'expiresAt',
     headerName: 'Expires On',
     align: 'center',
     flex: 1,
-    minWidth: 100,
+    minWidth: 50,
   },
   // {
   //   field: 'conversions',

@@ -10,6 +10,7 @@ import ListItemIcon, { listItemIconClasses } from '@mui/material/ListItemIcon';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import MoreVertRoundedIcon from '@mui/icons-material/MoreVertRounded';
 import MenuButton from './MenuButton';
+import { useNavigate } from "react-router-dom";
 
 const MenuItem = styled(MuiMenuItem)({
   margin: '2px 0',
@@ -23,6 +24,19 @@ export default function OptionsMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const navigate = useNavigate();
+
+  const logout = () => {
+    // Remove all user data
+    localStorage.removeItem("SIM-USER-JWT");
+    localStorage.removeItem("SIM-USER-EMAIL");
+    localStorage.removeItem("SIM-USER-NAME");
+
+    // Optional: clear everything in localStorage
+    localStorage.clear();
+
+    navigate("/", { replace: true });
   };
   return (
     <React.Fragment>
@@ -68,7 +82,7 @@ export default function OptionsMenu() {
             },
           }}
         >
-          <ListItemText>Logout</ListItemText>
+          <ListItemText onClick={logout}>Logout</ListItemText>
           <ListItemIcon>
             <LogoutRoundedIcon fontSize="small" />
           </ListItemIcon>

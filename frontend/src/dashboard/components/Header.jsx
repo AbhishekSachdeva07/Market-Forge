@@ -6,8 +6,35 @@ import MenuButton from './MenuButton';
 import ColorModeIconDropdown from '../../shared-theme/ColorModeIconDropdown';
 
 import Search from './Search';
+import { Button } from '@mui/material';
+import AddIcon from "@mui/icons-material/Add";
+import axios from 'axios';
 
-export default function Header() {
+export default function Header({ onApiKeyCreated }) { 
+  const createApiKey = async () => {
+    try {
+      const token = localStorage.getItem("SIM-USER-JWT");
+
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/api-keys`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      onApiKeyCreated();
+    } catch (error) {
+      const message =
+        error?.response?.data?.message?.message ??
+        error?.response?.data?.message ??
+        error.message;
+
+      alert(message);
+    }
+  };
   return (
     <Stack
       direction="row"
@@ -23,8 +50,23 @@ export default function Header() {
     >
       <NavbarBreadcrumbs />
       <Stack direction="row" sx={{ gap: 1 }}>
-        <Search />
-        <CustomDatePicker />
+        {/* <Search /> */}
+        {/* <CustomDatePicker /> */}
+        <Button
+          variant="contained"
+          size="small"
+          startIcon={<AddIcon />}
+          sx={{
+            textTransform: "none",
+            px: 1.5,
+            py: 0.5,
+            minHeight: 32,
+            fontSize: "0.8rem",
+          }}
+          onClick={createApiKey}
+        >
+          Create API Key
+        </Button>
         <MenuButton showBadge aria-label="Open notifications">
           <NotificationsRoundedIcon />
         </MenuButton>
