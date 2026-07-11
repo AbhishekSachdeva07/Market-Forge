@@ -57,8 +57,9 @@ function App() {
     alert('Logged successfully!');
   };
 
-  console.log("isMobile",isMobile);
-  if (isMobile) {
+  const shouldBlock = isMobile && location.pathname !== "/";
+
+  if (shouldBlock) {
     return <MobileBlocked />;
   }
 
