@@ -62,10 +62,12 @@ export class UsersService {
                         email,
                         role: user?.userType
                     })
-                    return { message: 'OTP verification successful', success: true, type, email, jwtToken:  jwt};
+                    return { message: 'OTP verification successful', success: true, type, email, name: user?.name, jwtToken:  jwt};
                 }
             }
-            throw new BadRequestException("Something Went Wrong")
+            else{
+                return { message: 'OTP verification successful', success: true, type, email, jwtToken:  null};
+            }
         }
         return { message: 'OTP verification failed', success: false, type, email };
     }

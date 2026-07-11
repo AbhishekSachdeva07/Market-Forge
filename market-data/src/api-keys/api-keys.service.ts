@@ -31,10 +31,10 @@ export class ApiKeysService {
         if(userData?.userType === UserType.STUDENT){
             const userApiKey = await this.apiKeyRepo.find({
                 where: {
-                    id: userData?.id
+                    userId: userData?.id
                 }
             })
-            if(userApiKey){
+            if(userApiKey.length>0){
                 throw new BadRequestException("Max Limit Reached")
             }
         }

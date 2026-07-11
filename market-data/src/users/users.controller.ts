@@ -13,7 +13,7 @@ export class UsersController {
     return this.usersService.handleLoginSignupOtp(userOtpDto);
   }
 
-  @Get("verify/otp")
+  @Post("verify/otp")
   @Version('1')
   async verifyOtp(@Body() userOtpDto: UserOtpDto) {
     return this.usersService.verifyOtp(userOtpDto);
