@@ -24,10 +24,10 @@ export class JwtTokenService {
         return await this.jwtService.decode(token);
     }
 
-    async generateAdminToken(payload: any): Promise<String> {
+    async generateAdminToken(payload: any, type: string): Promise<String> {
         return await this.generateToken({
             email: payload?.email,
-            role: UserType.ADMIN
+            role: type
         })
     }
 }

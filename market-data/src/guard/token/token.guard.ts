@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { InjectRepository } from '@nestjs/typeorm/dist/common/typeorm.decorators';
 import { Observable } from 'rxjs';
 import { ApiKey } from 'src/api-keys/entity/api-key.entity';
-import { Repository } from 'typeorm/browser/repository/Repository.js';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -26,10 +26,7 @@ export class TokenGuard implements CanActivate {
     }
 
     const validApiKey = await this.apiKeyRepository.findOne({
-      where: { apiKey, isActive: true },
-      relations: {
-          user: true,
-      }
+      where: { apiKey, isActive: true }
     });
 
     if (!validApiKey) {

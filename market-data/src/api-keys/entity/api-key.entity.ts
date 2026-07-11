@@ -20,35 +20,17 @@ export class ApiKey {
   })
   userId!: number;
 
-  @ManyToOne(
-    () => User,
-    { nullable: false },
-  )
-  @JoinColumn({
-    name: 'user_id',
-  })
-  user!: User;
-
   @Column({
     name: 'api_key',
     unique: true,
   })
   apiKey!: string;
 
-  @Column()
-  name!: string;
-
   @Column({
     name: 'is_active',
     default: true,
   })
   isActive!: boolean;
-
-  @Column({
-    name: 'last_used_at',
-    nullable: true,
-  })
-  lastUsedAt?: Date;
 
   @Column({
     name: 'expires_at',
